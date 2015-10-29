@@ -1,0 +1,14 @@
+PODS:
+  - TRCropViewController (1.0.9)
+
+DEPENDENCIES:
+  - TRCropViewController (from `../`)
+
+EXTERNAL SOURCES:
+  TRCropViewController:
+    :path: ../
+
+SPEC CHECKSUMS:
+  TRCropViewController: 9755d2717ab5d4c94501c51a2b19d0dbb9a04bc2
+
+COCOAPODS: 0.39.0
