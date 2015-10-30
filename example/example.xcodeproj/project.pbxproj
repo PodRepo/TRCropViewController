@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C05B956B1BE22DAD00E25B12 /* iii.png in Resources */ = {isa = PBXBuildFile; fileRef = C05B956A1BE22DAD00E25B12 /* iii.png */; };
 		C0B5AC1F1BE21B8400F60B0F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B5AC1E1BE21B8400F60B0F /* main.m */; };
 		C0B5AC221BE21B8400F60B0F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B5AC211BE21B8400F60B0F /* AppDelegate.m */; };
 		C0B5AC251BE21B8400F60B0F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B5AC241BE21B8400F60B0F /* ViewController.m */; };
@@ -37,7 +36,6 @@
 
 /* Begin PBXFileReference section */
 		3E026537C8014B8A56332A02 /* libPods-example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C05B956A1BE22DAD00E25B12 /* iii.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iii.png; sourceTree = "<group>"; };
 		C0B5AC1A1BE21B8400F60B0F /* example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0B5AC1E1BE21B8400F60B0F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C0B5AC201BE21B8400F60B0F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -129,7 +127,6 @@
 		C0B5AC1C1BE21B8400F60B0F /* example */ = {
 			isa = PBXGroup;
 			children = (
-				C05B956A1BE22DAD00E25B12 /* iii.png */,
 				C0B5AC201BE21B8400F60B0F /* AppDelegate.h */,
 				C0B5AC211BE21B8400F60B0F /* AppDelegate.m */,
 				C0B5AC231BE21B8400F60B0F /* ViewController.h */,
@@ -274,7 +271,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C05B956B1BE22DAD00E25B12 /* iii.png in Resources */,
 				C0B5AC2A1BE21B8400F60B0F /* Assets.xcassets in Resources */,
 				C0B5AC281BE21B8400F60B0F /* Main.storyboard in Resources */,
 			);
@@ -484,6 +480,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = example/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tarolib.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -496,6 +493,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = example/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tarolib.example;
 				PRODUCT_NAME = "$(TARGET_NAME)";

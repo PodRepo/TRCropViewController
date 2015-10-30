@@ -1,5 +1,7 @@
 PODS:
-  - TRCropViewController (1.0.9)
+  - Masonry (0.6.2)
+  - TRCropViewController (1.0.9):
+    - Masonry (~> 0.6.2)
 
 DEPENDENCIES:
   - TRCropViewController (from `../`)
@@ -9,6 +11,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  TRCropViewController: 9755d2717ab5d4c94501c51a2b19d0dbb9a04bc2
+  Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
+  TRCropViewController: e403ffa984af21a229322518bf1a57944a35f63a
 
 COCOAPODS: 0.39.0

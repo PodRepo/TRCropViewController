@@ -71,6 +71,8 @@ static const CGFloat kTOCropOverLayerCornerWidth = 20.0f;
     
     _horizontalGridLines = @[newLineView(), newLineView()];
     _verticalGridLines = @[newLineView(), newLineView()];
+    
+    self.hidden = YES;
 }
 
 - (void)setFrame:(CGRect)frame

@@ -1013,8 +1013,8 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
     
     //Work out the new angle, and wrap around once we exceed 360s
     NSInteger newAngle = self.angle;
-    newAngle -= 90;
-    if (newAngle <= -360)
+    newAngle += 90;
+    if (newAngle >= 360)
         newAngle = 0;
     
     self.angle = newAngle;
@@ -1022,13 +1022,13 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
     //Convert the new angle to radians
     CGFloat angleInRadians = 0.0f;
     switch (newAngle) {
-        case -90:
+        case 90:
             angleInRadians = M_PI_2;
             break;
-        case -180:
+        case 180:
             angleInRadians = M_PI;
             break;
-        case -270:
+        case 270:
             angleInRadians = (M_PI + M_PI_2);
             break;
         default:
@@ -1037,7 +1037,7 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
     }
     
     // Set up the transformation matrix for the rotation
-    CGAffineTransform rotation = CGAffineTransformRotate(CGAffineTransformIdentity, -angleInRadians);
+    CGAffineTransform rotation = CGAffineTransformRotate(CGAffineTransformIdentity, angleInRadians);
     
     //Work out how much we'll need to scale everything to fit to the new rotation
     CGRect contentBounds = self.contentBounds;
@@ -1049,18 +1049,18 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
     CGPoint cropTargetPoint = (CGPoint){cropMidPoint.x + self.scrollView.contentOffset.x, cropMidPoint.y + self.scrollView.contentOffset.y};
     
     //Work out the dimensions of the crop box when rotated
-    CGRect newCropFrame = CGRectZero;
-    if (self.angle == self.cropBoxLastEditedAngle || self.angle == ((self.cropBoxLastEditedAngle - 180) % 360)) {
-        newCropFrame.size = self.cropBoxLastEditedSize;
-    }
-    else {
-        newCropFrame.size = (CGSize){floorf(self.cropBoxLastEditedSize.height * scale), floorf(self.cropBoxLastEditedSize.width * scale)};
-        //update last edited size
-        self.cropBoxLastEditedSize = cropBoxFrame.size;
-    }
-    
-    newCropFrame.origin.x = floorf((CGRectGetWidth(self.bounds) - newCropFrame.size.width) * 0.5f);
-    newCropFrame.origin.y = floorf((CGRectGetHeight(self.bounds) - newCropFrame.size.height) * 0.5f);
+    CGRect newCropFrame = self.cropBoxFrame;
+//    if (self.angle == self.cropBoxLastEditedAngle || self.angle == ((self.cropBoxLastEditedAngle - 180) % 360)) {
+//        newCropFrame.size = self.cropBoxLastEditedSize;
+//    }
+//    else {
+//        newCropFrame.size = (CGSize){floorf(self.cropBoxLastEditedSize.height * scale), floorf(self.cropBoxLastEditedSize.width * scale)};
+//        //update last edited size
+//        self.cropBoxLastEditedSize = cropBoxFrame.size;
+//    }
+//    
+//    newCropFrame.origin.x = floorf((CGRectGetWidth(self.bounds) - newCropFrame.size.width) * 0.5f);
+//    newCropFrame.origin.y = floorf((CGRectGetHeight(self.bounds) - newCropFrame.size.height) * 0.5f);
     
     //If we're animated, generate a snapshot view that we'll animate in place of the real view
     UIView *snapshotView = nil;
@@ -1129,7 +1129,7 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
         self.gridOverlayView.hidden = YES;
         
         [UIView animateWithDuration:0.45f delay:0.0f usingSpringWithDamping:1.0f initialSpringVelocity:0.8f options:0 animations:^{
-            CGAffineTransform transform = CGAffineTransformRotate(CGAffineTransformIdentity, -M_PI_2);
+            CGAffineTransform transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI_2);
             transform = CGAffineTransformScale(transform, scale, scale);
             snapshotView.transform = transform;
             
