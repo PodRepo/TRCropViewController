@@ -145,8 +145,14 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
     self.scrollView.delegate = self;
     [self addSubview:self.scrollView];
     
-    self.scrollView.touchesBegan = ^{ [weakSelf startEditing]; };
-    self.scrollView.touchesEnded = ^{ [weakSelf startResetTimer]; };
+    self.scrollView.touchesBegan = ^{
+        NSLog(@"touchesBegan");
+        [weakSelf startEditing];
+    };
+    self.scrollView.touchesEnded = ^{
+        NSLog(@"touchesEnded");
+        [weakSelf startResetTimer];
+    };
     
     //Background Image View
     self.backgroundImageView = [[UIImageView alloc] initWithImage:self.image];
@@ -526,6 +532,7 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
 #pragma mark - Gesture Recognizer -
 - (void)gridPanGestureRecognized:(UIPanGestureRecognizer *)recognizer
 {
+    NSLog(@"gridPanGestureRecognized");
     CGPoint point = [recognizer locationInView:self];
     
     if (recognizer.state == UIGestureRecognizerStateBegan) {
@@ -552,6 +559,7 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
+     NSLog(@"gestureRecognizerShouldBegin");
     if (gestureRecognizer != self.gridPanGestureRecognizer)
         return YES;
     
@@ -640,12 +648,30 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
 
 #pragma mark - Scroll View Delegate -
 
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView { return self.backgroundContainerView; }
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView            { [self matchForegroundToBackground]; }
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView    { [self startEditing]; }
-- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view { [self startEditing]; }
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView   { [self startResetTimer]; }
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale { [self startResetTimer]; }
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    NSLog(@"viewForZoomingInScrollView");
+    return self.backgroundContainerView;
+}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView            {
+    NSLog(@"scrollViewDidScroll");
+    [self matchForegroundToBackground];
+}
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView    {
+    NSLog(@"scrollViewWillBeginDragging");
+    [self startEditing];
+}
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
+    NSLog(@"scrollViewWillBeginZooming");
+    [self startEditing];
+}
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView   {
+    NSLog(@"scrollViewDidEndDecelerating");
+    [self startResetTimer];
+}
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale {
+    NSLog(@"scrollViewDidEndZooming");
+    [self startResetTimer];
+}
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView
 {
@@ -1098,13 +1124,19 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
     cropTargetPoint.y *= scale;
     
     //swap the target dimensions to match a -90 degree rotation
-    CGFloat swap = cropTargetPoint.x;
-    cropTargetPoint.x = cropTargetPoint.y;
-    cropTargetPoint.y = self.scrollView.contentSize.height - swap;
+//    CGFloat swap = cropTargetPoint.x;
+//    cropTargetPoint.x = cropTargetPoint.y;
+//    cropTargetPoint.y = self.scrollView.contentSize.height - swap;
+    CGFloat swap = cropTargetPoint.y;
+    cropTargetPoint.y = cropTargetPoint.x;
+    cropTargetPoint.x = self.scrollView.contentSize.width - swap;
+    
     
     //reapply the translated scroll offset to the scroll view
     CGPoint midPoint = {CGRectGetMidX(newCropFrame), CGRectGetMidY(newCropFrame)};
-    CGPoint offset = CGPointZero;
+    CGPoint originOffset = self.scrollView.contentOffset;
+    CGPoint offset = CGPointMake(self.contentBounds.size.height - cropBoxFrame.size.height - originOffset.y, originOffset.x);
+    
     offset.x = floorf(-midPoint.x + cropTargetPoint.x);
     offset.y = floorf(-midPoint.y + cropTargetPoint.y);
     offset.x = MAX(-self.scrollView.contentInset.left, offset.x);
@@ -1115,6 +1147,7 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
     if (offset.x == self.scrollView.contentOffset.x && offset.y == self.scrollView.contentOffset.y && scale == 1) {
         [self matchForegroundToBackground];
     }
+    
     self.scrollView.contentOffset = offset;
     
     //If we're animated, play an animation of the snapshot view rotating,

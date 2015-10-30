@@ -90,6 +90,7 @@ typedef NS_ENUM(NSInteger, TRCropViewControllerAspectRatio) {
         make.left.equalTo(self.view).with.offset(0);
 //        make.bottom.equalTo(self.view).with.offset(0);
         make.right.equalTo(self.view).with.offset(0);
+        make.width.equalTo(self.view);
         make.height.equalTo(self.cropView.mas_width);
     }];
     
