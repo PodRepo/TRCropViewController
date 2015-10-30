@@ -58,7 +58,7 @@ static const CGFloat kTOCropOverLayerCornerWidth = 20.0f;
     UIView *(^newLineView)(void) = ^UIView *(void){
         UIView *newLine = [[UIView alloc] initWithFrame:CGRectZero];
         newLine.backgroundColor = [UIColor whiteColor];
-        [self addSubview:newLine];
+//        [self addSubview:newLine];
         return newLine;
     };
     
