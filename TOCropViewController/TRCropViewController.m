@@ -182,7 +182,6 @@ typedef NS_ENUM(NSInteger, TRCropViewControllerAspectRatio) {
     //If the delegate that only supplies crop data is provided, call it
     if ([self.delegate respondsToSelector:@selector(cropViewController:didCropImageToRect:angle:)]) {
         [self.delegate cropViewController:self didCropImageToRect:cropFrame angle:angle];
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     }
     //If the delegate that requires the specific cropped image is provided, call it
     else if ([self.delegate respondsToSelector:@selector(cropViewController:didCropToImage:withRect:angle:)]) {
@@ -198,10 +197,8 @@ typedef NS_ENUM(NSInteger, TRCropViewControllerAspectRatio) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.03f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.delegate cropViewController:self didCropToImage:image withRect:cropFrame angle:angle];
         });
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     }
     else {
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
