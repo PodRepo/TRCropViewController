@@ -773,6 +773,12 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
     CGPoint contentOffset = self.scrollView.contentOffset;
     UIEdgeInsets edgeInsets = self.scrollView.contentInset;
     
+    if (_angle == 90 || _angle == 270 ) {
+        CGSize tmp = imageSize;
+        imageSize.width = tmp.height;
+        imageSize.height = tmp.width;
+    }
+    
     CGRect frame = CGRectZero;
     frame.origin.x = floorf((contentOffset.x + edgeInsets.left) * (imageSize.width / contentSize.width));
     frame.origin.x = MAX(0, frame.origin.x);

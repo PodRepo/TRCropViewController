@@ -85,6 +85,8 @@
     imageFrame.origin.y = (CGRectGetHeight(self.view.bounds) - imageFrame.size.height) * 0.5f;
     self.imageView.frame = imageFrame;
     
+    self.view.backgroundColor = [UIColor grayColor];
+    
 }
 
 #pragma mark - Bar Button Items -
